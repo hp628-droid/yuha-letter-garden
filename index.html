@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#fff9f1">
+  <title>유하의 글자 정원</title>
+  <style>
+    :root{--ink:#3b3350;--paper:#fffdf8;--cream:#fff7e8;--rose:#ef7f9f;--rose2:#ffd4df;--violet:#7966ad;--mint:#9bc9b7;--gold:#e9aa3b;--line:#e8dfd5;--shadow:0 12px 30px rgba(69,45,73,.12)}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:var(--ink);background:var(--cream);overscroll-behavior:none}
+    body{min-height:100dvh;background:radial-gradient(circle at 12% 5%,#ffe3ec 0 10%,transparent 31%),radial-gradient(circle at 94% 96%,#dff2e8 0 9%,transparent 29%),var(--cream)}
+    button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+    .app{width:min(100%,980px);min-height:100dvh;margin:auto;padding:max(18px,env(safe-area-inset-top)) 22px max(24px,env(safe-area-inset-bottom));display:flex;flex-direction:column}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .brand{display:flex;align-items:center;gap:11px;font-size:clamp(1.15rem,3vw,1.55rem);font-weight:900;letter-spacing:-.04em}.crest{width:46px;height:46px;border-radius:15px;background:#fff;display:grid;place-items:center;box-shadow:var(--shadow);font-size:25px}
+    .timer{background:#fff;border:2px solid var(--line);border-radius:999px;padding:9px 14px;font-weight:800;display:flex;gap:7px;align-items:center}.timer.warn{border-color:var(--rose);color:#b84467}
+    main{flex:1;display:flex;flex-direction:column}.screen{display:none;flex:1}.screen.active{display:flex;flex-direction:column}
+    .welcome{background:rgba(255,255,255,.82);border:2px solid #fff;border-radius:30px;padding:clamp(22px,5vw,44px);box-shadow:var(--shadow);text-align:center;overflow:hidden;position:relative}
+    .princess{font-size:clamp(64px,14vw,105px);filter:drop-shadow(0 8px 10px rgba(83,54,73,.12));margin:0 0 6px}.welcome h1{font-size:clamp(1.8rem,6vw,3.1rem);margin:0;letter-spacing:-.07em}.welcome p{font-size:clamp(1rem,2.7vw,1.24rem);line-height:1.6;margin:10px 0 24px;color:#6e6479}
+    .worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.world{border:0;border-radius:24px;padding:20px 10px;background:#fff;box-shadow:0 7px 0 #eadfd6;font-weight:900;font-size:1.18rem;min-height:125px;transition:.14s}.world:active{transform:translateY(5px);box-shadow:0 2px 0 #eadfd6}.world .icon{display:block;font-size:42px;margin-bottom:8px}.world:nth-child(1){color:#a94868}.world:nth-child(2){color:#516f9d}.world:nth-child(3){color:#4a826c}
+    .note{margin-top:23px;font-size:.92rem!important}.session-start{border:0;background:var(--violet);color:#fff;padding:15px 24px;border-radius:18px;font-weight:900;font-size:1.12rem;box-shadow:0 6px 0 #56458a}
+    .lesson-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin:0 0 12px}.back{justify-self:start;border:0;background:#fff;border-radius:14px;padding:11px 14px;font-weight:800}.progress{display:flex;gap:6px}.dot{width:10px;height:10px;border-radius:50%;background:#ded5e2}.dot.done{background:var(--gold)}.stars{justify-self:end;background:#fff;border-radius:14px;padding:10px 13px;font-weight:900;color:#ac6c00}
+    .lesson{background:var(--paper);border:2px solid #fff;border-radius:29px;padding:clamp(16px,3vw,28px);box-shadow:var(--shadow);display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,.56fr);gap:20px;flex:1;min-height:0}
+    .canvas-wrap{position:relative;min-height:430px;border:3px solid var(--line);border-radius:24px;background:#fff;overflow:hidden;touch-action:none}.guide{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(13rem,38vw,25rem);font-weight:800;color:transparent;-webkit-text-stroke:4px #e5dbe9;opacity:.9;line-height:1;user-select:none;pointer-events:none;font-family:"Arial Rounded MT Bold","Apple SD Gothic Neo",sans-serif}.guide::after{content:"";position:absolute;left:8%;right:8%;top:50%;border-top:2px dashed #eadfe8}.trace{width:100%;height:100%;display:block;position:absolute;inset:0}
+    .side{display:flex;flex-direction:column;gap:13px}.card{background:#fff7fb;border-radius:22px;padding:19px;text-align:center}.label{font-size:.9rem;color:#817587;font-weight:700}.target{font-size:4.4rem;font-weight:900;line-height:1.15;margin:2px 0}.word{font-size:1.15rem;font-weight:900;color:var(--violet)}
+    .listen,.action{border:0;border-radius:17px;padding:15px;font-weight:900;font-size:1.05rem}.listen{background:#efeaff;color:#5d4c90}.clear{background:#f3efeb}.check{background:var(--rose);color:#fff;box-shadow:0 5px 0 #c85678}.next{background:var(--mint);color:#244f40;box-shadow:0 5px 0 #6ba38e}.tip{font-size:.94rem;line-height:1.55;color:#746b79;text-align:center;margin:1px}.feedback{min-height:52px;border-radius:17px;padding:12px;text-align:center;font-weight:900;background:#f6f2ed;display:grid;place-items:center}.feedback.good{background:#fff0b9;color:#7c5900}.feedback.try{background:#ffe7ee;color:#9b3658}
+    .done-screen{align-items:center;justify-content:center;text-align:center}.done-card{width:min(100%,600px);background:#fff;border-radius:32px;padding:42px 24px;box-shadow:var(--shadow)}.done-icon{font-size:84px}.done-card h2{font-size:2.2rem;margin:8px 0}.done-card p{font-size:1.12rem;line-height:1.6}.done-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.done-actions button{border:0;border-radius:18px;padding:15px 20px;font-weight:900}.again{background:var(--rose);color:#fff}.home{background:#eee9f4}
+    .limit{position:fixed;inset:0;background:rgba(50,38,57,.55);display:none;place-items:center;padding:24px;z-index:9}.limit.show{display:grid}.limit-card{background:#fff;border-radius:30px;padding:35px;max-width:500px;text-align:center;box-shadow:var(--shadow)}.limit-card .moon{font-size:75px}.limit-card h2{margin:10px 0}.parent-reset{border:0;background:#eee8f1;padding:12px 18px;border-radius:14px;font-weight:800}
+    @media(max-width:720px){.worlds{grid-template-columns:1fr}.world{min-height:auto;padding:13px;display:flex;align-items:center;justify-content:center;gap:12px}.world .icon{display:inline;margin:0;font-size:32px}.lesson{grid-template-columns:1fr}.canvas-wrap{min-height:43vh}.side{display:grid;grid-template-columns:1fr 1fr}.card,.feedback,.tip{grid-column:1/-1}.target{font-size:3.1rem}.lesson-head{grid-template-columns:auto 1fr auto}.progress{justify-content:center}.listen,.action{min-height:52px}}
+    @media(max-height:700px) and (orientation:landscape){.app{padding-top:10px}.lesson{padding:12px}.canvas-wrap{min-height:330px}.target{font-size:3rem}.card{padding:10px}.side{gap:8px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header><div class="brand"><span class="crest">♛</span><span>유하의 글자 정원</span></div><div class="timer" id="timer">⏱ <span>30:00</span></div></header>
+  <main>
+    <section class="screen active" id="homeScreen">
+      <div class="welcome">
+        <div class="princess">👸🏻</div><h1>오늘은 무엇을 배울까?</h1><p>소리를 듣고, 천천히 따라 쓰면<br>글자 정원에 별이 피어나요.</p>
+        <div class="worlds">
+          <button class="world" data-world="number"><span class="icon">🔢</span>숫자 성</button>
+          <button class="world" data-world="hangul"><span class="icon">🌸</span>한글 정원</button>
+          <button class="world" data-world="english"><span class="icon">🦋</span>영어 숲</button>
+        </div>
+        <p class="note">하루 한 번, 30분이면 충분해요 · 손가락과 Apple Pencil 모두 가능</p>
+      </div>
+    </section>
+    <section class="screen" id="lessonScreen">
+      <div class="lesson-head"><button class="back" id="back">← 나가기</button><div class="progress" id="progress"></div><div class="stars">⭐ <span id="stars">0</span></div></div>
+      <div class="lesson">
+        <div class="canvas-wrap" id="canvasWrap"><div class="guide" id="guide">1</div><canvas class="trace" id="canvas"></canvas></div>
+        <aside class="side">
+          <div class="card"><div class="label">오늘의 글자</div><div class="target" id="target">1</div><div class="word" id="word">일 · 하나</div></div>
+          <button class="listen" id="listen">🔊 다시 들어보기</button>
+          <p class="tip">연한 글자를 따라<br>천천히 써 보세요.</p>
+          <div class="feedback" id="feedback">준비되면 써 볼까요?</div>
+          <button class="action clear" id="clear">↺ 다시 쓰기</button>
+          <button class="action check" id="check">다 썼어요 ✓</button>
+          <button class="action next" id="next" hidden>다음 글자 →</button>
+        </aside>
+      </div>
+    </section>
+    <section class="screen done-screen" id="doneScreen"><div class="done-card"><div class="done-icon">🏰</div><h2>멋지게 해냈어요!</h2><p><b id="doneStars">5개의 별</b>을 모았어요.<br>눈을 쉬게 하고 내일 또 만나요.</p><div class="done-actions"><button class="again" id="again">한 번 더</button><button class="home" id="goHome">처음으로</button></div></div></section>
+  </main>
+</div>
+<div class="limit" id="limit"><div class="limit-card"><div class="moon">🌙</div><h2>오늘의 글자 여행 끝!</h2><p>30분 동안 정말 잘했어요.<br>이제 눈과 손을 쉬게 해 주세요.</p><button class="parent-reset" id="parentReset">보호자와 종료하기</button></div></div>
+<script>
+  const lessons={
+    number:[['1','일, 하나'],['2','이, 둘'],['3','삼, 셋'],['4','사, 넷'],['5','오, 다섯']],
+    hangul:[['ㄱ','기역, 그네의 기역'],['ㄴ','니은, 나비의 니은'],['ㅏ','아'],['ㅗ','오'],['가','가, 가방의 가']],
+    english:[['A','A, apple'],['B','B, bear'],['C','C, cat'],['D','D, dog'],['E','E, egg']]
+  };
+  const $=s=>document.querySelector(s), screens=[...document.querySelectorAll('.screen')];let world='number',idx=0,stars=0,started=false,timeLeft=1800,ticker=null,drawing=false,points=0,last=null;
+  const canvas=$('#canvas'),ctx=canvas.getContext('2d',{alpha:true});
+  function show(id){screens.forEach(x=>x.classList.toggle('active',x.id===id))}
+  function resize(){const r=$('#canvasWrap').getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);canvas.width=r.width*d;canvas.height=r.height*d;canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(d,0,0,d,0,0);ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#7966ad';ctx.lineWidth=Math.max(12,Math.min(r.width,r.height)*.035)}
+  function speak(text){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=world==='english'?'en-US':'ko-KR';u.rate=.72;u.pitch=1.15;speechSynthesis.speak(u)}
+  function startTimer(){if(started)return;started=true;ticker=setInterval(()=>{timeLeft--;const m=String(Math.floor(timeLeft/60)).padStart(2,'0'),s=String(timeLeft%60).padStart(2,'0');$('#timer span').textContent=`${m}:${s}`;$('#timer').classList.toggle('warn',timeLeft<=300);if(timeLeft<=0){clearInterval(ticker);$('#limit').classList.add('show');speechSynthesis.cancel()}},1000)}
+  function dots(){let h='';lessons[world].forEach((_,i)=>h+=`<span class="dot ${i<idx?'done':''}"></span>`);$('#progress').innerHTML=h}
+  function load(){const [char,word]=lessons[world][idx];$('#guide').textContent=char;$('#target').textContent=char;$('#word').textContent=word;$('#feedback').textContent='준비되면 써 볼까요?';$('#feedback').className='feedback';$('#next').hidden=true;$('#check').hidden=false;points=0;last=null;dots();requestAnimationFrame(()=>{resize();ctx.clearRect(0,0,canvas.width,canvas.height)});setTimeout(()=>speak(word),350)}
+  function begin(w){world=w;idx=0;stars=0;$('#stars').textContent=0;show('lessonScreen');startTimer();load()}
+  document.querySelectorAll('.world').forEach(b=>b.onclick=()=>begin(b.dataset.world));
+  function pos(e){const r=canvas.getBoundingClientRect(),p=e.touches?e.touches[0]:e;return{x:p.clientX-r.left,y:p.clientY-r.top}}
+  function down(e){e.preventDefault();drawing=true;last=pos(e);ctx.beginPath();ctx.moveTo(last.x,last.y);points++}
+  function move(e){if(!drawing)return;e.preventDefault();const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;points++}
+  function up(){drawing=false;last=null}
+  canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);
+  $('#listen').onclick=()=>speak(lessons[world][idx][1]);
+  $('#clear').onclick=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);points=0;$('#feedback').textContent='괜찮아요. 다시 천천히 써 봐요!';$('#feedback').className='feedback'};
+  $('#check').onclick=()=>{if(points<8){$('#feedback').textContent='글자를 조금 더 따라 써 볼까요?';$('#feedback').className='feedback try';speak('천천히 한 번 더 써 볼까요?');return}stars++;$('#stars').textContent=stars;$('#feedback').textContent=['반짝반짝, 정말 잘했어요! ⭐','멋진 글자가 피었어요! 🌸','참 꼼꼼하게 썼어요! 👑'][idx%3];$('#feedback').className='feedback good';$('#check').hidden=true;$('#next').hidden=false;speak('참 잘했어요')};
+  $('#next').onclick=()=>{if(idx<lessons[world].length-1){idx++;load()}else{$('#doneStars').textContent=`${stars}개의 별`;show('doneScreen');speak('모두 해냈어요. 참 잘했어요')}};
+  $('#back').onclick=()=>{show('homeScreen');speechSynthesis.cancel()};$('#goHome').onclick=()=>show('homeScreen');$('#again').onclick=()=>begin(world);
+  $('#parentReset').onclick=()=>{if(confirm('보호자 확인: 학습을 종료하고 처음 화면으로 돌아갈까요?')){$('#limit').classList.remove('show');show('homeScreen')}};
+  addEventListener('resize',()=>{if($('#lessonScreen').classList.contains('active'))resize()});document.addEventListener('visibilitychange',()=>{if(document.hidden)speechSynthesis.cancel()});
+</script>
+</body>
+</html>
