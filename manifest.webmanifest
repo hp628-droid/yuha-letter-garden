@@ -1,0 +1,25 @@
+{
+  "name": "유하의 글자 정원",
+  "short_name": "글자 정원",
+  "description": "숫자·한글·영어를 따라 쓰며 배우는 어린이 학습 게임",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fff7e8",
+  "theme_color": "#ef7f9f",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
