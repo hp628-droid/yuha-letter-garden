@@ -1,8 +1,8 @@
 {
-  "name": "유하의 글자 정원",
-  "short_name": "글자 정원",
+  "name": "유하의 글자정원",
+  "short_name": "글자정원",
   "description": "숫자·한글·영어를 따라 쓰며 배우는 어린이 학습 게임",
-  "start_url": "./",
+  "start_url": "./app-v2.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
