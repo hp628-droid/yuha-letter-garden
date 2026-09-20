@@ -21,12 +21,12 @@
 const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg',screens=[...document.querySelectorAll('.screen')],show=id=>screens.forEach(x=>x.classList.toggle('on',x.id===id));
 const princesses=[
  {id:'ariel',name:'에리엘',image:'assets/ariel-user.png',hair:'#a92b31',dress:'#43b9ad',top:'#9060b2',skin:'#f6c6aa',style:'mermaid'},
- {id:'cinderella',name:'신데렐라',hair:'#e8c56c',dress:'#75b8e7',top:'#8ac8ef',skin:'#f4c6a6',style:'ball'},
- {id:'rapunzel',name:'라푼젤',hair:'#e4bd55',dress:'#ab75c8',top:'#8f5fb2',skin:'#f5c39f',style:'long'},
- {id:'belle',name:'벨',hair:'#72432e',dress:'#e5af36',top:'#f0bf45',skin:'#eebd94',style:'rose'},
- {id:'snow',name:'백설공주',hair:'#272331',dress:'#f0c934',top:'#376eb0',skin:'#f2c3ad',style:'bow'},
- {id:'elsa',name:'엘사',hair:'#eee6d2',dress:'#69c5d8',top:'#4aaabe',skin:'#f1c8b3',style:'ice'},
- {id:'anna',name:'안나',hair:'#8c4b32',dress:'#397d89',top:'#253f68',skin:'#f1bd9d',style:'cape'}
+ {id:'cinderella',name:'신데렐라',image:'assets/cinderella-user.webp',hair:'#e8c56c',dress:'#75b8e7',top:'#8ac8ef',skin:'#f4c6a6',style:'ball'},
+ {id:'rapunzel',name:'라푼젤',image:'assets/rapunzel-user.webp',hair:'#e4bd55',dress:'#ab75c8',top:'#8f5fb2',skin:'#f5c39f',style:'long'},
+ {id:'belle',name:'벨',image:'assets/belle-user.webp',hair:'#72432e',dress:'#e5af36',top:'#f0bf45',skin:'#eebd94',style:'rose'},
+ {id:'snow',name:'백설공주',image:'assets/snow-user.webp',hair:'#272331',dress:'#f0c934',top:'#376eb0',skin:'#f2c3ad',style:'bow'},
+ {id:'elsa',name:'엘사',image:'assets/elsa-user.webp',hair:'#eee6d2',dress:'#69c5d8',top:'#4aaabe',skin:'#f1c8b3',style:'ice'},
+ {id:'anna',name:'안나',image:'assets/anna-user.webp',hair:'#8c4b32',dress:'#397d89',top:'#253f68',skin:'#f1bd9d',style:'cape'}
 ];
 function princessArt(p){
  if(p.image)return '<img class="princessPhoto" src="'+p.image+'" alt="'+p.name+' 전신 일러스트" draggable="false">';
