@@ -112,9 +112,18 @@ for(const ch of Object.keys(glyph))glyph[ch]=glyph[ch].map((st,i)=>roundedPoints
 glyph['2']=[roundedPoints(parse('20,30 30,15 60,10 82,25 78,45 55,62 25,85')[0],true).concat([[85,85]])];
 glyph['5']=[roundedPoints(parse('28,12 24,50 35,45 58,46 80,58 82,80 65,95 38,95 18,82')[0],true),parse('28,12 82,12')[0]];
 glyph['i'][1]=[[50,17],[50.2,17]];glyph['j'][1]=[[60,17],[60.2,17]];
-const hg=[['기본 자음 ①','ㄱㄴㄷㄹ'],['기본 자음 ②','ㅁㅂㅅㅇㅈ'],['기본 자음 ③','ㅊㅋㅌㅍㅎ'],['기본 모음 ①','ㅏㅑㅓㅕㅗ'],['기본 모음 ②','ㅛㅜㅠㅡㅣ'],['가부터 하까지','가나다라마바사아자차카타파하'],['아부터 이까지','아야어여오요우유으이']],eg=[['알파벳 ①','ABCDE'],['알파벳 ②','FGHIJ'],['알파벳 ③','KLMNO'],['알파벳 ④','PQRST'],['알파벳 ⑤','UVWXYZ']];
+const hg=[['기본 자음 ①','ㄱㄴㄷㄹ'],['기본 자음 ②','ㅁㅂㅅㅇㅈ'],['기본 자음 ③','ㅊㅋㅌㅍㅎ'],['기본 모음 ①','ㅏㅑㅓㅕㅗ'],['기본 모음 ②','ㅛㅜㅠㅡㅣ'],['가부터 사까지','가나다라마바사'],['아부터 하까지','아자차카타파하'],['아부터 오까지','아야어여오'],['요부터 이까지','요우유으이']],eg=[['알파벳 ①','ABCDE'],['알파벳 ②','FGHIJ'],['알파벳 ③','KLMNO'],['알파벳 ④','PQRST'],['알파벳 ⑤','UVWXYZ']];
 const course={number:Array.from({length:10},(_,i)=>({name:'숫자 '+(i*10+1)+'–'+((i+1)*10),items:Array.from({length:10},(_,j)=>''+(i*10+j+1))})),hangul:hg.map(x=>({name:x[0],items:[...x[1]]})),english:eg.map(x=>({name:x[0],items:[...x[1]].map(c=>c+c.toLowerCase())}))};
 let prog=JSON.parse(localStorage.getItem('yuhaProgressV2')||'{}'),S={w:'number',l:0,i:0,stars:0,strokes:[],si:0,last:0,drawing:false},canvas=$('#canvas'),ctx=canvas.getContext('2d'),timer,total=1800,left=1800;
+if(!prog.hangulSplitV1){
+ const old6=prog['hangul-5']?{...prog['hangul-5']}:null,old7=prog['hangul-6']?{...prog['hangul-6']}:null;
+ delete prog['hangul-5'];delete prog['hangul-6'];delete prog['hangul-7'];delete prog['hangul-8'];
+ if(old6){let n=Number(old6.done||0);prog['hangul-5']={done:Math.min(7,n)};if(n>7)prog['hangul-6']={done:Math.min(7,n-7)}}
+ if(old7){let n=Number(old7.done||0);prog['hangul-7']={done:Math.min(5,n)};if(n>5)prog['hangul-8']={done:Math.min(5,n-5)}}
+ if(prog.last?.w==='hangul'&&prog.last.l===5){let i=prog.last.i||0;prog.last={w:'hangul',l:i<7?5:6,i:i<7?i:i-7}}
+ else if(prog.last?.w==='hangul'&&prog.last.l===6){let i=prog.last.i||0;prog.last={w:'hangul',l:i<5?7:8,i:i<5?i:i-5}}
+ prog.hangulSplitV1=1;localStorage.setItem('yuhaProgressV2',JSON.stringify(prog));
+}
 const save=()=>localStorage.setItem('yuhaProgressV2',JSON.stringify(prog)),k=(w,l)=>w+'-'+l,done=(w,l)=>prog[k(w,l)]?.done||0,wn=w=>({number:'숫자 성',hangul:'한글 정원',english:'영어 숲'}[w]);
 const gemInfo={number:{name:'숫자 루비',color:'#ed6d7b'},hangul:{name:'한글 자수정',color:'#b376d5'},english:{name:'영어 사파이어',color:'#5aa8df'}};
 const accessories=[
